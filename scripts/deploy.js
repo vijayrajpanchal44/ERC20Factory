@@ -8,12 +8,12 @@ const hre = require("hardhat");
 
 async function main() {
 
-  const SetQuoteMeta = await hre.ethers.getContractFactory("QuoteMeta");
-  const setQuoteMeta = await SetQuoteMeta.deploy();
+  const ERC20TokenFactory = await hre.ethers.getContractFactory("ERC20TokenFactory");
+  const erc20TokenFactory = await ERC20TokenFactory.deploy();
 
-  await setQuoteMeta.deployed();
+  await erc20TokenFactory.deployed();
 
-  console.log("setQuoteMeta is deployed on: ", setQuoteMeta.address);
+  console.log("ERC20TokenFactory is deployed on: ", erc20TokenFactory.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
