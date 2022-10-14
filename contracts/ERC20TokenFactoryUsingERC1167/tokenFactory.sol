@@ -1,22 +1,26 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
-import "./tokenEIP1167.sol";
-contract tokenFactoryEIP1167 {
+// import "@openzeppelin/contracts-upgradeable/presets/ERC20PresetFixedSupplyUpgradeable.sol";
+// import "@openzeppelin/contracts/proxy/Clones.sol";
+import "./ERC20Token.sol";
 
-    address constant template = 0x80922Db6752eCe1C2DeFA54Beb8FB984E649308B;
+contract tokenFactory{
+    address[] public createdTokens;
 
     event TokenCreated(
         address referenceToken,
         address newToken,
         string name,
-        string symbol
-        );
+        string symbol,
+        uint8 decimal
+    );
 
-    function create(string memory name, string memory symbol)
+    function create(string memory name, string memory symbol,uint8 decimal, address template)
     external returns (address) {
         address wallet = createClone(template);
-        ERC20Token1167(wallet).ERC20token(name, symbol);
-        emit TokenCreated(template, wallet, name, symbol);
+        ERC20Token(wallet).initialize(name, symbol, decimal);
+        createdTokens.push(wallet);
+        emit TokenCreated(template, wallet, name, symbol, decimal);
         return wallet;
     }
 
@@ -28,6 +32,6 @@ contract tokenFactoryEIP1167 {
             mstore(add(clone, 0x14), targetBytes)
             mstore(add(clone, 0x28), 0x5af43d82803e903d91602b57fd5bf30000000000000000000000000000000000)
             result := create(0, clone, 0x37)
-        }
+    }
 }
 }
