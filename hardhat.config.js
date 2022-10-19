@@ -10,6 +10,10 @@ module.exports = {
     }
   },
 
+  // mocha: {
+  //   reporter: 'eth-gas-reporter',
+  // },
+
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY,
   },
@@ -18,12 +22,6 @@ module.exports = {
     compilers: [
       {
         version: "0.8.5",
-        // settings: {
-        //   optimizer: {
-        //     enabled: true,
-        //     runs: 200,
-        //   },
-        // },
       },
     ],
   }

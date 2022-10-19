@@ -34,7 +34,7 @@ contract tokenFactory{
         _tokenIdCounter.increment();
         uint256 tokenId = _tokenIdCounter.current();
         address wallet = createClone(template);
-        ERC20Token(wallet).initialize(name, symbol, decimal);
+        ERC20Token(wallet).initialize(name, symbol, decimal);  //@audit constructor is not supported by this approach
         createdTokens.push(wallet);
         idToCloneTokenDetail[tokenId] = cloneTokenDetail(tokenId, name,symbol,wallet, template);
         emit TokenCreated(template, wallet, name, symbol, decimal);
@@ -45,10 +45,14 @@ contract tokenFactory{
         bytes20 targetBytes = bytes20(target);
         assembly {
             let clone := mload(0x40)
-            mstore(clone, 0x3d602d80600a3d3981f3363d3d373d3d3d363d73000000000000000000000000)
+            mstore(clone, 0x3d602d80600a3d3981f3363d3d373d3d3d363d73000000000000000000000000)  //@audit 
             mstore(add(clone, 0x14), targetBytes)
-            mstore(add(clone, 0x28), 0x5af43d82803e903d91602b57fd5bf30000000000000000000000000000000000)
+            mstore(add(clone, 0x28), 0x5af43d82803e903d91602b57fd5bf30000000000000000000000000000000000) //@audit 
             result := create(0, clone, 0x37)
+        }
     }
-}
+    // function tokenDetails(uint256 tokenNumber) public view returns (cloneTokenDetail[] memory) {
+    //     return idToCloneTokenDetail[tokenNumber];
+    // }
+
 }

@@ -22,6 +22,10 @@ contract ERC20Token is Context, IERC20, IERC20Metadata  {
         _decimal = decimal;
     }
 
+    function mint(uint256 amount) public {
+        _mint(msg.sender, amount);        
+    }
+
     function name() public view virtual override returns (string memory) {
         return _name;
     }
