@@ -1,6 +1,8 @@
 require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-etherscan");
 require("dotenv").config();
+require("hardhat-gas-reporter");
+require("solidity-coverage");
 
 module.exports = {
   networks: {
@@ -10,8 +12,9 @@ module.exports = {
     }
   },
 
-  // mocha: {
-  //   reporter: 'eth-gas-reporter',
+  // gasReporter: {
+  //   currency: 'CHF',
+  //   gasPrice: 21
   // },
 
   etherscan: {

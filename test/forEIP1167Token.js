@@ -2,6 +2,11 @@ const { expect } = require("chai");
 const { ethers, hre } = require("hardhat");
 require("@nomiclabs/hardhat-waffle");
 
+describe("eth-gas-reporter workaround", () => {
+    it("should kill time", (done) => {
+        setTimeout(done, 2000);
+    });
+});
 describe("for ERC1167 ERC20 token test", async function () {
     let tokenContract;
 
@@ -101,3 +106,4 @@ describe("for ERC1167 ERC20 token test", async function () {
     });
 
 })
+
