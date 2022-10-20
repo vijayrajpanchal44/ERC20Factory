@@ -15,14 +15,22 @@ contract ERC20Token is Context, IERC20, IERC20Metadata  {
     string private _name;
     string private _symbol;
 
+    address public EOAowner;
+
+    modifier onlyOwnerOrigin {
+        require(msg.sender == EOAowner," Only owner can mint");
+        _;
+    }
+
 
     function initialize(string memory name_, string memory symbol_, uint8 decimal) public {
         _name = name_;
         _symbol = symbol_;
         _decimal = decimal;
+        EOAowner = tx.origin;
     }
 
-    function mint(uint256 amount) public {
+    function mint(uint256 amount) public onlyOwnerOrigin{
         _mint(msg.sender, amount);        
     }
 

@@ -9,7 +9,7 @@ contract Token is ERC20 {
     address public owner;
 
     modifier onlyOwnerOrigin {
-        msg.sender == owner;
+        require(msg.sender == owner," Only owner can mint");
         _;
     }
     constructor(string memory name, string memory symbol, uint8 decimal) 
