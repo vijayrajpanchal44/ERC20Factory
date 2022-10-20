@@ -6,13 +6,19 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract Token is ERC20 {
     uint8 private _decimals;
+    address public owner;
 
+    modifier onlyOwnerOrigin {
+        msg.sender == owner;
+        _;
+    }
     constructor(string memory name, string memory symbol, uint8 decimal) 
     ERC20(name, symbol){
         setDecimals(decimal);
+        owner = tx.origin;
     }
 
-    function mint(uint256 amount) public {
+    function mint(uint256 amount) public onlyOwnerOrigin{
         _mint(msg.sender, amount);
     }
 
